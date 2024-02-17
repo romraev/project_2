@@ -1,0 +1,444 @@
+roman@roman-VB:~$ mysql -h localhost -u root -p
+
+Enter password: 
+
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+
+Your MySQL connection id is 9
+
+Server version: 8.0.36 MySQL Community Server - GPL
+
+
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+
+affiliates. Other names may be trademarks of their respective
+
+owners.
+
+
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+
+
+mysql> show databases;
+
++--------------------+
+
+| Database           |
+
++--------------------+
+
+| information_schema |
+
+| mysql              |
+
+| performance_schema |
+
+| sys                |
+
++--------------------+
+
+4 rows in set (0,00 sec)
+
+
+
+mysql> create database human_friends;
+
+Query OK, 1 row affected (0,05 sec)
+
+
+
+mysql> use human_friends;
+
+Database changed
+
+mysql> create table animals(
+
+    -> id int unique auto_increment not null primary key,
+
+    ->     name varchar(30) not null,
+
+    ->     d_o_b timestamp not null,
+
+    ->     commands varchar(200)
+
+    -> );
+
+Query OK, 0 rows affected (0,24 sec)
+
+
+
+mysql> create table pets(
+
+    -> id serial primary key,
+
+    -> animal_id INT not null,
+
+    ->     type varchar(20),
+
+    ->     foreign key (animal_id) references animals(id) on update cascade on delete cascade
+
+    -> );
+
+Query OK, 0 rows affected (0,21 sec)
+
+
+
+mysql> create table pack_animals(
+
+    -> id serial primary key,
+
+    -> animal_id INT,
+
+    ->     type varchar(20),
+
+    ->     foreign key(animal_id) references animals(id) on update cascade on delete cascade
+
+    -> );
+
+Query OK, 0 rows affected (0,14 sec)
+
+
+
+mysql> create table pack_animals(
+
+    -> id serial primary key,
+
+    -> animal_id INT,
+
+    ->     type varchar(20),
+
+    ->     foreign key(animal_id) references animals(id) on update cascade on delete cascade
+
+    -> );
+
+[1]+  Stopped                 mysql -h localhost -u root -p
+
+roman@roman-VB:~$ mysql -h localhost -u root -p
+
+Enter password: 
+
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+
+Your MySQL connection id is 10
+
+Server version: 8.0.36 MySQL Community Server - GPL
+
+
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+
+affiliates. Other names may be trademarks of their respective
+
+owners.
+
+
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+
+
+mysql> use human_friends;
+
+Reading table information for completion of table and column names
+
+You can turn off this feature to get a quicker startup with -A
+
+
+
+Database changed
+
+mysql> insert into animals(name, d_o_b, commands) values ("Fido", "2020-01-01", "Sit, Stay, Fetch"), ("Whiskers", "2019-05-15", "Sit, Pounce"), ("Hammy", "2021-03-10", "Roll, Hide"), ("Buddy", "2018-12-10", "Sit, Paw, Bark"), ("Smudge", "2020-02-20", "Sit, Pounce, Scratch"), ("Peanut", "2021-08-01", "Roll, Spin"), ("Bella", "2019-11-11", "Sit, Stay, Roll"), ("Oliver", "2020-06-30", "Meow, Scratch, Jump"),  ("Thunder", "2015-07-21", "Trot, Canter, Gallop"), (" Sandy", "2016-11-03", "Walk, Carry Load"), (" Eeyore", "2017-09-18", "Walk, Carry Load, Bray"), (" Storm", "2014-05-05", "Trot, Canter"), (" Dune", "2018-12-12", "Walk, Sit"), (" Burro", "2019-01-23", "Walk, Bray, Kick"), (" Blaze", "2016-02-29", "Trot, Jump, Gallop"), (" Sahara", "2015-08-14", "Walk, Run");
+
+Query OK, 16 rows affected (0,03 sec)
+
+Records: 16  Duplicates: 0  Warnings: 0
+
+
+
+mysql> insert into pets(animal_id, type) values (1, 'Dog'), (2, 'Cat'), (3, 'Hamster'), (4, 'Dog'), (5, 'Cat'), (6, 'Hamster'), (7, 'Dog'), (8, 'Cat');
+
+Query OK, 8 rows affected (0,06 sec)
+
+Records: 8  Duplicates: 0  Warnings: 0
+
+
+
+mysql> insert into pack_animals(animal_id, type) values (9, 'Horse'), (10, 'Camel'), (11, 'Donkey'), (12, 'Horse'), (13, 'Camel'), (14, 'Donkey'), (15, 'Horse'), (16, 'Camel');
+
+Query OK, 8 rows affected (0,02 sec)
+
+Records: 8  Duplicates: 0  Warnings: 0
+
+
+
+mysql> select * from animals;
+
++----+----------+---------------------+------------------------+
+
+| id | name     | d_o_b               | commands               |
+
++----+----------+---------------------+------------------------+
+
+|  1 | Fido     | 2020-01-01 00:00:00 | Sit, Stay, Fetch       |
+
+|  2 | Whiskers | 2019-05-15 00:00:00 | Sit, Pounce            |
+
+|  3 | Hammy    | 2021-03-10 00:00:00 | Roll, Hide             |
+
+|  4 | Buddy    | 2018-12-10 00:00:00 | Sit, Paw, Bark         |
+
+|  5 | Smudge   | 2020-02-20 00:00:00 | Sit, Pounce, Scratch   |
+
+|  6 | Peanut   | 2021-08-01 00:00:00 | Roll, Spin             |
+
+|  7 | Bella    | 2019-11-11 00:00:00 | Sit, Stay, Roll        |
+
+|  8 | Oliver   | 2020-06-30 00:00:00 | Meow, Scratch, Jump    |
+
+|  9 | Thunder  | 2015-07-21 00:00:00 | Trot, Canter, Gallop   |
+
+| 10 |  Sandy   | 2016-11-03 00:00:00 | Walk, Carry Load       |
+
+| 11 |  Eeyore  | 2017-09-18 00:00:00 | Walk, Carry Load, Bray |
+
+| 12 |  Storm   | 2014-05-05 00:00:00 | Trot, Canter           |
+
+| 13 |  Dune    | 2018-12-12 00:00:00 | Walk, Sit              |
+
+| 14 |  Burro   | 2019-01-23 00:00:00 | Walk, Bray, Kick       |
+
+| 15 |  Blaze   | 2016-02-29 00:00:00 | Trot, Jump, Gallop     |
+
+| 16 |  Sahara  | 2015-08-14 00:00:00 | Walk, Run              |
+
++----+----------+---------------------+------------------------+
+
+16 rows in set (0,00 sec)
+
+
+
+mysql> select * from pets;
+
++----+-----------+---------+
+
+| id | animal_id | type    |
+
++----+-----------+---------+
+
+|  1 |         1 | Dog     |
+
+|  2 |         2 | Cat     |
+
+|  3 |         3 | Hamster |
+
+|  4 |         4 | Dog     |
+
+|  5 |         5 | Cat     |
+
+|  6 |         6 | Hamster |
+
+|  7 |         7 | Dog     |
+
+|  8 |         8 | Cat     |
+
++----+-----------+---------+
+
+8 rows in set (0,00 sec)
+
+
+
+mysql> select * from pack_animals;
+
++----+-----------+--------+
+
+| id | animal_id | type   |
+
++----+-----------+--------+
+
+|  1 |         9 | Horse  |
+
+|  2 |        10 | Camel  |
+
+|  3 |        11 | Donkey |
+
+|  4 |        12 | Horse  |
+
+|  5 |        13 | Camel  |
+
+|  6 |        14 | Donkey |
+
+|  7 |        15 | Horse  |
+
+|  8 |        16 | Camel  |
+
++----+-----------+--------+
+
+8 rows in set (0,00 sec)
+
+
+
+mysql> create table kids select animals.id as id, animals.name as name, animals.d_o_b as dob, pa.type as type, 
+
+    -> 
+
+Display all 777 possibilities? (y or n) 
+
+    -> n
+
+    -> ;
+
+ERROR 1109 (42S02): Unknown table 'animals' in field list
+
+mysql> create table kids select animals.id as id, animals.name as name, animals.d_o_b as dob, pa.type as type, 
+
+    -> 
+
+Display all 777 possibilities? (y or n) 
+
+    -> timestampdiff(month, animals.d_o_b, now()) as age
+
+    -> from animals 
+
+    ->     join (select pets.animal_id, pets.type from pets union select pack_animals.animal_id, pack_animals.type from pack_animals) as pa
+
+    ->     on animals.id = pa.animal_id
+
+    ->     having age < 36;
+
+Query OK, 2 rows affected (0,25 sec)
+
+Records: 2  Duplicates: 0  Warnings: 0
+
+
+
+mysql> select * from kids;
+
++----+--------+---------------------+---------+------+
+
+| id | name   | dob                 | type    | age  |
+
++----+--------+---------------------+---------+------+
+
+|  3 | Hammy  | 2021-03-10 00:00:00 | Hamster |   35 |
+
+|  6 | Peanut | 2021-08-01 00:00:00 | Hamster |   30 |
+
++----+--------+---------------------+---------+------+
+
+2 rows in set (0,00 sec)
+
+
+
+mysql> create table animals_total 
+
+    -> select animals.*,
+
+    ->     case 
+
+    -> 
+
+Display all 777 possibilities? (y or n) 
+
+    -> when pa.type = 'Dog' or pa.type = 'Cat' or pa.type = 'Hamster'
+
+    -> 
+
+Display all 777 possibilities? (y or n) 
+
+    -> 
+
+Display all 777 possibilities? (y or n) 
+
+    -> then 'Pets'
+
+    -> 
+
+Display all 777 possibilities? (y or n) 
+
+    -> when pa.type = 'Horse' or pa.type = 'Camel' or pa.type = 'Donkey'
+
+    -> 
+
+Display all 777 possibilities? (y or n) 
+
+    -> 
+
+Display all 777 possibilities? (y or n) 
+
+    -> then 'Pack Animals'
+
+    -> end as from_table
+
+    -> from animals
+
+    -> join (select pets.animal_id, pets.type from pets 
+
+    -> union select pack_animals.animal_id, pack_animals.type from pack_animals) as pa
+
+    -> on animals.id = pa.animal_id;
+
+Query OK, 16 rows affected (0,34 sec)
+
+Records: 16  Duplicates: 0  Warnings: 0
+
+
+
+mysql> select * from animals_total;
+
++----+----------+---------------------+------------------------+--------------+
+
+| id | name     | d_o_b               | commands               | from_table   |
+
++----+----------+---------------------+------------------------+--------------+
+
+|  1 | Fido     | 2020-01-01 00:00:00 | Sit, Stay, Fetch       | Pets         |
+
+|  2 | Whiskers | 2019-05-15 00:00:00 | Sit, Pounce            | Pets         |
+
+|  3 | Hammy    | 2021-03-10 00:00:00 | Roll, Hide             | Pets         |
+
+|  4 | Buddy    | 2018-12-10 00:00:00 | Sit, Paw, Bark         | Pets         |
+
+|  5 | Smudge   | 2020-02-20 00:00:00 | Sit, Pounce, Scratch   | Pets         |
+
+|  6 | Peanut   | 2021-08-01 00:00:00 | Roll, Spin             | Pets         |
+
+|  7 | Bella    | 2019-11-11 00:00:00 | Sit, Stay, Roll        | Pets         |
+
+|  8 | Oliver   | 2020-06-30 00:00:00 | Meow, Scratch, Jump    | Pets         |
+
+|  9 | Thunder  | 2015-07-21 00:00:00 | Trot, Canter, Gallop   | Pack Animals |
+
+| 10 |  Sandy   | 2016-11-03 00:00:00 | Walk, Carry Load       | Pack Animals |
+
+| 11 |  Eeyore  | 2017-09-18 00:00:00 | Walk, Carry Load, Bray | Pack Animals |
+
+| 12 |  Storm   | 2014-05-05 00:00:00 | Trot, Canter           | Pack Animals |
+
+| 13 |  Dune    | 2018-12-12 00:00:00 | Walk, Sit              | Pack Animals |
+
+| 14 |  Burro   | 2019-01-23 00:00:00 | Walk, Bray, Kick       | Pack Animals |
+
+| 15 |  Blaze   | 2016-02-29 00:00:00 | Trot, Jump, Gallop     | Pack Animals |
+
+| 16 |  Sahara  | 2015-08-14 00:00:00 | Walk, Run              | Pack Animals |
+
++----+----------+---------------------+------------------------+--------------+
+
+16 rows in set (0,00 sec)
+
+
+
+mysql> 
+
